@@ -36,7 +36,9 @@ dev_dependences[29]=cross-env
 dev_dependences[30]=redux
 dev_dependences[31]=semantic-ui-react
 dev_dependences[32]=postcss-each
-dev_dependences[32]=sass-importLoaders
+dev_dependences[33]=sass-importLoaders
+dev_dependences[34]=react-redux
+
 echo "creating package.json"
 
 cat <<EOF > "package.json"
@@ -44,12 +46,11 @@ cat <<EOF > "package.json"
   "name": "Sectores",
   "version": "1.0.0",
   "scripts": {
-    "start": "start npm run dev:server & start npm run gulp",
+    "start": "start npm run dev:server",
     "dev:server": "webpack-dev-server --history-api-fallback",
     "build": "webpack --progress --colors",
     "gulp": "gulp",
-    "prod:build": "cross-env NODE_ENV=production webpack -p --config webpackprod.config.js --optimize-minimize --progress --colors"
-  }
+    "prod:build": "cross-env NODE_ENV=production webpack -p --config webpackprod.config.js --optimize-minimize --progress --colors"  }
 }
 EOF
 

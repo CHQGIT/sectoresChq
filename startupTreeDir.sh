@@ -18,16 +18,17 @@ cat <<EOF > "index.html"
     <meta name="author" content="Evelyn Hernández">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>My React APP</title>
-    <link rel="stylesheet" type="text/css" href="arcgis_js_api/library/3.17/3.17/dijit/themes/tundra/tundra.css" />
-    <link rel="stylesheet" href="arcgis_js_api/library/3.17/3.17//esri/css/esri.css">
-    <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" type="text/css" href="arcgis_js_api/library/3.22/3.22/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="arcgis_js_api/library/3.22/3.22//esri/css/esri.css">
+
   </head>
   <body>
-    <script src="arcgis_js_api/library/3.17/3.17/init.js"></script>
+    <script src="arcgis_js_api/library/3.22/3.22/init.js"></script>
     <div id="app"></div>
     <script type="text/javascript">require(["bundle.js"], function (bundle) {});</script>
   </body>
 </html>
+
 EOF
 
 echo "creating webpack config for development"
@@ -35,11 +36,13 @@ echo "creating webpack config for development"
 cat <<EOF > "webpack.config.js"
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
     bundle: [
       "react-hot-loader/patch",
+
       "./src/index.js"
     ]
   },
@@ -58,7 +61,8 @@ module.exports = {
   devServer: {
     inline: true,
     port: 443,
-    host: "127.0.0.1"
+    host: "127.0.0.1",
+    hot: true
   },
   module: {
     rules: [
@@ -81,8 +85,8 @@ module.exports = {
          }
        }
      },
-     {
-        test: /\.css$/,
+     /*{
+        test: /(\.css|\.scss)$/,
         use: [
           "style-loader",
           {
@@ -96,7 +100,35 @@ module.exports = {
           },
           "postcss-loader" // has separate config, see postcss.config.js nearby
         ]
-      }
+      },
+      */
+      {
+
+         test: /\.css$/,
+         use: [
+           "style-loader",
+           {
+             loader: "css-loader",
+             options: {
+               modules: true,
+               sourceMap: true,
+               importLoaders: 1,
+               localIdentName: "[name]--[local]--[hash:base64:8]"
+             }
+           },
+           "postcss-loader" // has separate config, see postcss.config.js nearby
+         ]
+       },
+       {
+         test: /\.scss$/,
+           use: [{
+               loader: "style-loader" // creates style nodes from JS strings
+           }, {
+               loader: "css-loader" // translates CSS into CommonJS
+           }, {
+               loader: "sass-loader" // compiles Sass to CSS
+           }]
+       }
    ]
  },
  externals: [
@@ -112,7 +144,12 @@ module.exports = {
      }
  ],
  plugins: [
-   new webpack.HotModuleReplacementPlugin()
+   new webpack.NamedModulesPlugin(),
+   new webpack.HotModuleReplacementPlugin(),
+   new ExtractTextPlugin({
+     filename: 'myStyles[name].css',
+     allChunks: true
+   })
  ]
 };
 EOF
@@ -123,6 +160,7 @@ cat <<EOF > "webpackprod.config.js"
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -162,6 +200,7 @@ module.exports = {
        }
      },
      {
+
         test: /\.css$/,
         use: [
           "style-loader",
@@ -176,7 +215,15 @@ module.exports = {
           },
           "postcss-loader" // has separate config, see postcss.config.js nearby
         ]
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
       }
+
    ]
  },
  externals: [
@@ -192,19 +239,25 @@ module.exports = {
      }
  ],
  plugins: [
-   new webpack.HotModuleReplacementPlugin(),
-   new UglifyJSPlugin({
-     sourceMap: true,
-     beautify: false,
-     mangle: {
-       screw_ie8: true,
-       keep_fnames: true
-     },
-     compress: {
-       screw_ie8: true
-     },
-     comments: false
+   new ExtractTextPlugin({
+     filename: '../css/myStyles[name].css',
+     allChunks: true
    }),
+   new webpack.HotModuleReplacementPlugin(),
+
+   new UglifyJSPlugin({
+    uglifyOptions: {
+      ie8: false,
+      ecma: 8,
+      output: {
+        comments: false,
+        beautify: false,
+
+      },
+      compress: true,
+      warnings: false
+    }
+  }),
    new webpack.DefinePlugin({
      'process.env.NODE_ENV': JSON.stringify('production')
    })
@@ -213,7 +266,8 @@ module.exports = {
 EOF
 
 echo "creating postcss config file"
-cat <<EOF> "postcss.config.js"
+
+cat <<EOF > "postcss.config.js"
 module.exports = {
   plugins: {
     'postcss-import': {
@@ -224,7 +278,6 @@ module.exports = {
     'postcss-cssnext': {}
   },
 };
-
 EOF
 
 

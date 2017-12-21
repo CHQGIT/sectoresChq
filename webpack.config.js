@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     bundle: [
       "react-hot-loader/patch",
-      
+
       "./src/index.js"
     ]
   },
@@ -85,10 +85,13 @@ module.exports = {
        },
        {
          test: /\.scss$/,
-         use: ExtractTextPlugin.extract({
-           fallback: 'style-loader',
-           use: ['css-loader', 'sass-loader']
-         })
+           use: [{
+               loader: "style-loader" // creates style nodes from JS strings
+           }, {
+               loader: "css-loader" // translates CSS into CommonJS
+           }, {
+               loader: "sass-loader" // compiles Sass to CSS
+           }]
        }
    ]
  },
@@ -105,6 +108,7 @@ module.exports = {
      }
  ],
  plugins: [
+   new webpack.NamedModulesPlugin(),
    new webpack.HotModuleReplacementPlugin(),
    new ExtractTextPlugin({
      filename: 'myStyles[name].css',
