@@ -12,4 +12,12 @@ const dismissNotification = (visible) => {
   }
 }
 
-export {showNotification, dismissNotification}
+const saveRegion = (region) =>{
+  return {
+    type: "SAVE_REGION",
+    region: region
+  }
+}
+
+
+export {showNotification, dismissNotification, saveRegion}

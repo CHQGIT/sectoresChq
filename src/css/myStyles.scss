@@ -16,6 +16,14 @@ body {
   width: 100% !important;
 }
 
+.esriSimpleSliderTL {
+    bottom: 20px !important;
+    right: 20px !important;
+    top: auto;
+    left: auto;
+}
+
 
 @import "./components/togglerSymbology";
 @import "./components/messageNotification";
+@import "./components/Symbology";
