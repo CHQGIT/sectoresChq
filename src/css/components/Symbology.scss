@@ -30,9 +30,7 @@ $secondary: #f5515f;
   color: $primary;
 }
 
-.symbology_title h2{
 
-}
 .symbology_subtitle{
   display: flex;
   flex-direction: column;
@@ -58,9 +56,10 @@ $secondary: #f5515f;
   flex-direction: row;
   display: flex;
   flex-wrap: wrap;
-  padding: 0.2em 1em 1em 1em;
+  padding: 0.2em 5em 1em 5em;
   width: 100%;
   justify-content: space-between;
+  font-size: 14px;
 }
 
 .range_red{
@@ -104,7 +103,8 @@ $secondary: #f5515f;
   }
 
   .range{
-    font-size: 9px;
+    font-size: 8px;
+    padding: 1em;
   }
 }
 
@@ -136,6 +136,8 @@ $secondary: #f5515f;
   }
 }
 
+
+
 @media only screen and (max-width: 991px) and (min-width: 768px){
   .ui.container{
     display: block;
@@ -145,6 +147,10 @@ $secondary: #f5515f;
 
   .symbology_container{
     width: 30%;
+  }
+
+  .range{
+    font-size: 9px;
   }
 }
 
@@ -157,6 +163,18 @@ $secondary: #f5515f;
 @media only screen and (max-width: 1199px) and (min-width: 992px){
   .symbology_container{
     width: 30%;
+  }
+  .range{
+    font-size: 9px;
+    padding: 0.2em 10em 1em 8em;
+  }
+}
+
+
+@media only screen and (max-width: 1366px) and (min-width: 1200px) and (orientation: landscape){
+  .range{
+    font-size: 10px;
+    padding: 0.2em 5em 1em 5em;
   }
 
 }

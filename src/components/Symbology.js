@@ -14,7 +14,7 @@ class Symbology extends Component{
 
       <div className="symbology_wrapper">
         {/* titulos*/}
-        <div className="symbology_title"><h2>Fallas en {this.props.region}</h2></div>
+        <div className="symbology_title"><h3>INTERRUPCIONES DE SUMINISTRO</h3></div>
         <div className="symbology_subtitle">
 
           <h3>Simbología:</h3>
@@ -30,7 +30,7 @@ class Symbology extends Component{
           </div>
         </div>
       </div>
-    
+
     )
   }
 }

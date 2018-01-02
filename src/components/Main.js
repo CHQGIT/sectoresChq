@@ -10,26 +10,33 @@ import {innerLogin} from '../services/login-service';
 import {showNotification, dismissNotification, saveRegion} from '../redux/actions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
+import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
+
 class Main extends React.Component {
 
   componentDidMount(){
-    var map = new Map("map", {
-      center: [-71.2905 ,-33.1009],
-      basemap: "topo",
-      zoom: 9,
-      logo: false
+
+    var comuna =getComunaExtent('VALPARAISO');
+    comuna.then(r=>{
+        console.log(r[0][1],"tengo");
+        var map = new Map("map", {
+          center: [r[0][1] ,r[0][2]],
+          basemap: "topo",
+          zoom: r[0][3],
+          logo: false
+        });
     });
 
     var login = innerLogin('vialactea\\usrgis','N3L4y5HZ');
     login.then(r=>{
       store.dispatch(showNotification("Agregar comentarios aquí"));
       store.dispatch(dismissNotification(false));
-      store.dispatch(saveRegion("Valparaíso"))
+      //store.dispatch(saveRegion("Valparaíso"))
 
     },e=>{
       store.dispatch(showNotification("Error al visualizar el mapa. Login incorrecto"));
       store.dispatch(dismissNotification(true));
-      store.dispatch(saveRegion(""))
+      //store.dispatch(saveRegion(""))
     });
   }
   render(){
