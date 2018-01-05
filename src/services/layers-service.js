@@ -9,7 +9,6 @@ function getLayer(){
 
   return {
     read_tokenURL(){
-      console.log(serviceMain + "tokens/generateToken");
       return serviceMain + "tokens/generateToken";
     }
 

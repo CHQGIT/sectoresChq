@@ -11,15 +11,25 @@ import {showNotification, dismissNotification, saveRegion} from '../redux/action
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
+import {getURLParameters} from '../services/parameters';
 
 class Main extends React.Component {
 
   componentDidMount(){
 
-    var comuna =getComunaExtent('VALPARAISO');
+    var c = getURLParameters();
+  
+
+    if(c.comuna){
+        console.log(`COMUNA: ${c.comuna}`);
+    }
+    else{
+      console.log("COMUNA DEFAULT: SAN ANTONIO");
+      c.comuna = "SAN ANTONIO";
+    }
+    var comuna = getComunaExtent(c.comuna);
     comuna.then(r=>{
-        console.log(r[0][1],"tengo");
-        var map = new Map("map", {
+          var map = new Map("map", {
           center: [r[0][1] ,r[0][2]],
           basemap: "topo",
           zoom: r[0][3],

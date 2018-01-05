@@ -31,7 +31,7 @@ function innerLogin(user,pass){
 
       }
 
-      console.log('writing token into system', token);
+    
       cookieHandler.set('tkn',token);
       resolve([true,'OK', token]);
     })
