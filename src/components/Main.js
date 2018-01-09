@@ -12,42 +12,49 @@ import {connect} from 'react-redux';
 import store from '../redux/store';
 import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
 import {getURLParameters} from '../services/parameters';
+import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 
 class Main extends React.Component {
 
   componentDidMount(){
 
     var c = getURLParameters();
-  
 
-    if(c.comuna){
-        console.log(`COMUNA: ${c.comuna}`);
+
+    if (c.comuna) {
+      console.log(`COMUNA: ${c.comuna}`)
+    }else{
+       console.log("COMUNA DEFAULT: VALPARAISO");
+       c.comuna = "VALPARAISO";
     }
-    else{
-      console.log("COMUNA DEFAULT: SAN ANTONIO");
-      c.comuna = "SAN ANTONIO";
-    }
+
     var comuna = getComunaExtent(c.comuna);
     comuna.then(r=>{
-          var map = new Map("map", {
+        var map = new Map("map", {
           center: [r[0][1] ,r[0][2]],
           basemap: "topo",
           zoom: r[0][3],
           logo: false
         });
+
+
+        var login = innerLogin('vialactea\\usrgis','N3L4y5HZ');
+        login.then(r=>{
+          store.dispatch(showNotification("Agregar comentarios aquí"));
+          store.dispatch(dismissNotification(false));
+          //store.dispatch(saveRegion("Valparaíso"))
+
+          //continue
+
+        },e=>{
+          store.dispatch(showNotification("Error al visualizar el mapa. Login incorrecto."));
+          store.dispatch(dismissNotification(true));
+          //store.dispatch(saveRegion(""))
+        });
+
     });
 
-    var login = innerLogin('vialactea\\usrgis','N3L4y5HZ');
-    login.then(r=>{
-      store.dispatch(showNotification("Agregar comentarios aquí"));
-      store.dispatch(dismissNotification(false));
-      //store.dispatch(saveRegion("Valparaíso"))
 
-    },e=>{
-      store.dispatch(showNotification("Error al visualizar el mapa. Login incorrecto"));
-      store.dispatch(dismissNotification(true));
-      //store.dispatch(saveRegion(""))
-    });
   }
   render(){
     return (
