@@ -23,6 +23,13 @@ body {
     left: auto;
 }
 
+#BasemapToggle{
+  position: absolute;
+    z-index: 5;
+    display: flex;
+    bottom: 0.5em;
+    margin: 0.5em;
+}
 
 @import "./components/togglerSymbology";
 @import "./components/messageNotification";

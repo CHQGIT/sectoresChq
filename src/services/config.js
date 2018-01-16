@@ -3,10 +3,10 @@ const env = {
     CSSDIRECTORY: 'src/css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'DEVELOPMENT',
-    WEBSERVERADDRESS: "http://gisred.chilquinta/mapa",
+    WEBSERVERADDRESS: "http://pchilquinta.cl/mapafallas",
     SAVEAPPLICATIONMODULE: "",
     SAVEAPPLICATIONNAME: '',
-    BUILDFOR: 'INTERNA'
+    BUILDFOR: 'EXTERNA'
 }
 
 

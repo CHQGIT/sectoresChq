@@ -13,6 +13,9 @@ import store from '../redux/store';
 import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
 import {getURLParameters} from '../services/parameters';
 import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
+import getLayer from '../services/layers-service';
+import BasemapToggle from "esri/dijit/BasemapToggle";
+import getInfoTemplate from '../services/infoTemplates';
 
 class Main extends React.Component {
 
@@ -45,6 +48,32 @@ class Main extends React.Component {
           //store.dispatch(saveRegion("Valparaíso"))
 
           //continue
+          //agregando layer clientes sed.
+          var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(),{id:"po_sectores"});
+            interrClienteSED.setInfoTemplates({
+              0: {infoTemplate: getInfoTemplate.getTramos()}
+            });
+
+            interrClienteSED.refreshInterval = 1;
+            interrClienteSED.setImageFormat("png32");
+
+          var gps = new ArcGISDynamicMapServiceLayer(getLayer.read_po_gps(),{id:"po_gps"});
+            
+            gps.refreshInterval = 1;
+            gps.setImageFormat("png32");
+            gps.setVisibleLayers([1]);
+
+          var gps_layerDefs = [];
+              gps_layerDefs[1] = "CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='SAT'";
+              gps.setLayerDefinitions(gps_layerDefs);
+
+          map.addLayers([interrClienteSED,gps]);
+
+          var toggle = new BasemapToggle({
+            map: map,
+            basemap: "hybrid"
+          }, "BasemapToggle");
+          toggle.startup();
 
         },e=>{
           store.dispatch(showNotification("Error al visualizar el mapa. Login incorrecto."));
@@ -68,6 +97,7 @@ class Main extends React.Component {
         <div className="symbology_container">
           <Symbology />
         </div>
+        <div id="BasemapToggle"></div>
       </Container>
 
 

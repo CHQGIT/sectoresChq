@@ -23,10 +23,10 @@ class Symbology extends Component{
         {/*simbolos*/}
         <div className="symbology_image_range">
           <div className="symbology_range">
-            <div className="range"><Icon name='circle' className="range_red"/><div className="img_red">500 - 2000 Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_orange"/><div className="img_orange">100 - 500 Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_yellow"/><div className="img_yellow">51 - 500 Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_green"/><div className="img_green">1 -50 Clientes Afectados</div></div>
+            <div className="range"><Icon name='circle' className="range_red"/><div className="img_red">00-25% Clientes Afectados</div></div>
+            <div className="range"><Icon name='circle' className="range_orange"/><div className="img_orange">25-50% Clientes Afectados</div></div>
+            <div className="range"><Icon name='circle' className="range_yellow"/><div className="img_yellow">50-75% Clientes Afectados</div></div>
+            <div className="range"><Icon name='circle' className="range_green"/><div className="img_green">75-100% Clientes Afectados</div></div>
           </div>
         </div>
       </div>
@@ -35,6 +35,13 @@ class Symbology extends Component{
   }
 }
 
+/*
+o	00-25%     VERDE               B4FFB4
+o	25-50%     AMARILLO          FFFFB4
+o	50-75%     AZUL                     B4F5FF
+o	75-100%  NARANJO           FFDCB4
+
+*/
   const mapStateToProps = state => {
     return {
       region: state.region
