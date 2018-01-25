@@ -14,9 +14,6 @@ function getLayer(){
     },
     read_po_sectores(){
       return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" + cookieHandler.get('tkn');
-    },
-    read_po_gps(){
-      return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token=" + cookieHandler.get('tkn');
     }
 
   }

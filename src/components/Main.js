@@ -51,23 +51,15 @@ class Main extends React.Component {
           //agregando layer clientes sed.
           var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(),{id:"po_sectores"});
             interrClienteSED.setInfoTemplates({
-              0: {infoTemplate: getInfoTemplate.getTramos()}
+              0: {infoTemplate: getInfoTemplate.getSectorCentroide()},
+              1: {infoTemplate: getInfoTemplate.getTramos()}
             });
 
             interrClienteSED.refreshInterval = 1;
             interrClienteSED.setImageFormat("png32");
 
-          var gps = new ArcGISDynamicMapServiceLayer(getLayer.read_po_gps(),{id:"po_gps"});
-            
-            gps.refreshInterval = 1;
-            gps.setImageFormat("png32");
-            gps.setVisibleLayers([1]);
-
-          var gps_layerDefs = [];
-              gps_layerDefs[1] = "CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='SAT'";
-              gps.setLayerDefinitions(gps_layerDefs);
-
-          map.addLayers([interrClienteSED,gps]);
+      
+          map.addLayers([interrClienteSED]);
 
           var toggle = new BasemapToggle({
             map: map,

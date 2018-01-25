@@ -40,6 +40,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.9",
     "postcss-mixins": "^6.2.0",
+    "rc-tooltip": "^3.7.0",
     "react-hot-loader": "^3.0.0",
     "react-redux": "^5.0.6",
     "react-select": "^1.1.0",

@@ -78,6 +78,19 @@ $secondary: #f5515f;
   color: #FF4000;
 }
 
+.range_img{
+  src: url('./images/tramo.png');
+}
+
+.help_icon{
+  color: red;
+  font-size: 1.5em;
+}
+
+.help_icon_text{
+  font-size: 15px;
+}
+
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .ui.container{
