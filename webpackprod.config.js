@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+
   entry: {
     bundle: [
       "react-hot-loader/patch",
@@ -94,20 +95,6 @@ module.exports = {
      allChunks: true
    }),
    new webpack.HotModuleReplacementPlugin(),
-
-   new UglifyJSPlugin({
-    uglifyOptions: {
-      ie8: false,
-      ecma: 8,
-      output: {
-        comments: false,
-        beautify: false,
-
-      },
-      compress: true,
-      warnings: false
-    }
-  }),
    new webpack.DefinePlugin({
      'process.env.NODE_ENV': JSON.stringify('production')
    })

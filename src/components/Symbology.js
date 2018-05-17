@@ -2,7 +2,6 @@ import store from '../redux/store';
 import React,  { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {saveRegion} from '../redux/actions';
 import { Icon } from 'semantic-ui-react';
 import {Container} from 'semantic-ui-react';
 import env from '../services/config';
@@ -33,32 +32,13 @@ class Symbology extends Component{
 
       <div className="symbology_wrapper">
         {/* titulos*/}
-        <div className="symbology_title"><h3>INTERRUPCIONES DE SUMINISTRO POR SECTOR</h3></div>
-        <div className="symbology_subtitle">
+        <div className="symbology_title"><h3>Interrupciones por sector</h3></div>
 
-          <h3>Simbología:</h3>
-          <h4>Cantidad de clientes afectados:</h4>
-        </div>
-        {/*simbolos*/}
         <div className="symbology_image_range">
-          <div className="symbology_range">
-            <div className="range"><Icon name='circle' className="range_red"/><div className="img_red">00-25% Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_orange"/><div className="img_orange">25-50% Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_yellow"/><div className="img_yellow">50-75% Clientes Afectados</div></div>
-            <div className="range"><Icon name='circle' className="range_green"/><div className="img_green">75-100% Clientes Afectados</div></div>
-            <div className="range"><img src={env.CSSDIRECTORY+"images/tramo.png"}></img>
-                Red Eléctrica
-                <Tooltip
-                  visible={this.state.visible}
-                  animation="zoom"
-                  onVisibleChange={this.onVisibleChange}
-                  trigger="hover"
-                  overlay={<span style={{fontSize: '15px'}}>Selecciona la red para conocer el tiempo estimado de reposición del servicio.</span>}
-                  ><a href="#" className="help_icon" onClick={preventDefault}><Icon name='help circle'/></a>
-                </Tooltip>
-            </div>
+            <p>Haz click sobre la red para conocer la hora estimada de reposición.</p>
+            <div className="symbol_"><img src={env.CSSDIRECTORY+"images/tramo.png"}></img></div>
 
-          </div>
+
         </div>
       </div>
 
@@ -79,4 +59,4 @@ o	75-100%  NARANJO           FFDCB4
     };
   }
 
-export default connect(mapStateToProps,{saveRegion})(Symbology);
+export default connect(mapStateToProps)(Symbology);

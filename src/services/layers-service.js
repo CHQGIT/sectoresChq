@@ -1,9 +1,10 @@
 import env from './config';
 import cookieHandler from 'cookie-handler';
+
 function getLayer(){
   var serviceMain, serviceURL;
 
-  (env.BUILDFOR=="INTERNA") ? serviceMain = 'http://gisred.chilquinta/arcgis/' : serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/'
+  (env.BUILDFOR=="INTERNA") ? serviceMain = 'http://gisred.chilquinta/arcgis/' : serviceMain = 'https://gisred.chilquinta.cl:6443/arcgis/'
 
   serviceURL = serviceMain + 'rest/services/';
   var token = cookieHandler.get('tkn');
@@ -12,8 +13,14 @@ function getLayer(){
     read_tokenURL(){
       return serviceMain + "tokens/generateToken";
     },
-    read_po_sectores(){
-      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" + cookieHandler.get('tkn');
+    read_po_sectores(token){
+      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" +token;
+    },
+    read_nisAfectados(token){
+      return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token;
+    },
+    read_nis(token){
+      return serviceURL + "Chilquinta_006/ClientesV2/MapServer/0?f=json&token=" + token;
     }
 
   }

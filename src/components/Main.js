@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../css/myStyles.scss';
 import Map from 'esri/map';
-import {Container} from 'semantic-ui-react';
+import {Container, Divider, Message, Button} from 'semantic-ui-react';
 import ToggleSymbology from './ToggleSymbology';
 import BottomSidebar from './BottomSidebar';
 import Symbology from './Symbology';
-import {innerLogin} from '../services/login-service';
-import {showNotification, dismissNotification, saveRegion} from '../redux/actions';
+import {showNotification, dismissNotification, login_in} from '../redux/actions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
@@ -16,61 +15,73 @@ import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLay
 import getLayer from '../services/layers-service';
 import BasemapToggle from "esri/dijit/BasemapToggle";
 import getInfoTemplate from '../services/infoTemplates';
+import {conf} from '../services/config';
+import Search from 'esri/dijit/Search';
+import CustomSearch from './CustomSearch';
+import mapa from '../services/map_service';
+import esriBundle from "dojo/i18n!esri/nls/jsapi";
 
 class Main extends React.Component {
 
   componentDidMount(){
 
     var c = getURLParameters();
-
-
     if (c.comuna) {
-      console.log(`COMUNA: ${c.comuna}`)
+      //  console.log(`COMUNA: ${c.comuna}`)
     }else{
-       console.log("COMUNA DEFAULT: VALPARAISO");
+      // console.log("COMUNA DEFAULT: VALPARAISO");
        c.comuna = "VALPARAISO";
     }
 
-    var comuna = getComunaExtent(c.comuna);
-    comuna.then(r=>{
-        var map = new Map("map", {
-          center: [r[0][1] ,r[0][2]],
-          basemap: "topo",
-          zoom: r[0][3],
-          logo: false
-        });
+    var comuna = getComunaExtent(c.comuna)
+    .then(r=>{
+
+        esriBundle.widgets.Search.main.placeholder = "Calle n°, comuna";
+
+        var map = mapa.createMap(r[0][1],r[0][2],r[0][3]);
+
+        var search = new Search({
+            map: mapa.getMap(),
+            zoomScale: 20000,
+            countryCode: 'CHL'
+        }, "search");
+        search.startup();
+
+        const {showNotif, dismissNotif, login} = this.props;
+
+        var l = login(conf().user, conf().pass)
+          .then(res=>{
+          if(res)  {
+            //agregando layer clientes sed.
+            const {token} = this.props;
+
+            var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(token),{id:"po_sectores"});
+
+              interrClienteSED.setInfoTemplates({
+                0: {infoTemplate: getInfoTemplate.getSectorCentroide()},
+                1: {infoTemplate: getInfoTemplate.getTramos()}
+              });
+
+              interrClienteSED.refreshInterval = 1;
+              interrClienteSED.setImageFormat("png32");
 
 
-        var login = innerLogin('vialactea\\usrgis','N3L4y5HZ');
-        login.then(r=>{
-          store.dispatch(showNotification("Agregar comentarios aquí"));
-          store.dispatch(dismissNotification(false));
-          //store.dispatch(saveRegion("Valparaíso"))
+            map.addLayers([interrClienteSED]);
 
-          //continue
-          //agregando layer clientes sed.
-          var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(),{id:"po_sectores"});
-            interrClienteSED.setInfoTemplates({
-              0: {infoTemplate: getInfoTemplate.getSectorCentroide()},
-              1: {infoTemplate: getInfoTemplate.getTramos()}
-            });
+            var toggle = new BasemapToggle({
+              map: map,
+              basemap: "satellite"
+            }, "BasemapToggle");
+            toggle.startup();
 
-            interrClienteSED.refreshInterval = 1;
-            interrClienteSED.setImageFormat("png32");
-
-      
-          map.addLayers([interrClienteSED]);
-
-          var toggle = new BasemapToggle({
-            map: map,
-            basemap: "hybrid"
-          }, "BasemapToggle");
-          toggle.startup();
-
+          }else{
+            showNotif("Error al visualizar el mapa. Login incorrecto.");
+            dismissNotif(true);
+          }
         },e=>{
-          store.dispatch(showNotification("Error al visualizar el mapa. Login incorrecto."));
-          store.dispatch(dismissNotification(true));
-          //store.dispatch(saveRegion(""))
+          showNotif("Error al visualizar el mapa. Login incorrecto.");
+          dismissNotif(true);
+
         });
 
     });
@@ -78,17 +89,55 @@ class Main extends React.Component {
 
   }
   render(){
+    var {searchValue, message, interrupted} = this.props;
+    var msg = null;
+    if(message.visible){
+
+
+      switch (interrupted) {
+        case 'INTERRUMPIDO':
+            msg = <Message visible={message.visible} negative color='red'>
+                {interrupted}
+              </Message>
+        break;
+        case 'SIN PROBLEMAS':
+            msg = <Message visible={message.visible} positive color='green'>
+                {interrupted}
+              </Message>
+        break;
+        case 'NO SE ENCUENTRA NIS':
+            msg = <Message visible={message.visible} info color='blue'>
+                {interrupted}
+              </Message>
+        break;
+      }
+    }else{
+      msg = null;
+    }
+
+
     return (
 
       <Container className="map_container">
         <div id="map"></div>
-        {/*<ToggleSymbology theClass="symb_"/>*/}
-        <div className="message_container">
-          <BottomSidebar />
-        </div>
+
         <div className="symbology_container">
           <Symbology />
+            <div className="address_container">
+              <div className="symbology_title"><h4>Revisa el estado de tu suministro</h4></div>
+              <div id="search"></div>
+              <Divider horizontal>O busca tu número de cliente</Divider>
+              <CustomSearch />
+              {msg}
+
+           </div>
+           <div className="symbology_container2">
+             <Button className="report_button" color='red'><a className="a_link" href="https://portalweb.chilquinta.cl/reportar_incidencia">¡REPORTAR CORTE DE LUZ!</a></Button>
+
+          </div>
         </div>
+
+        <div className="symbology_container2"></div>
         <div id="BasemapToggle"></div>
       </Container>
 
@@ -97,6 +146,21 @@ class Main extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    login:(user, pass) => dispatch(login_in(user,pass)),
+    showNotif: (message) => dispatch(showNotification(message)),
+    dismissNotif: (value) => dispatch(dismissNotification(value))
+  }
+}
 
+const mapStateToProps = state => {
+  return {
+    token: state.login.token[2],
+    interrupted: state.search.interrupted,
+    searchValue: state.search.selectedSearch,
+    message: state.message
+  }
+}
 
-export default Main;
+export default connect(mapStateToProps,mapDispatchToProps)(Main);

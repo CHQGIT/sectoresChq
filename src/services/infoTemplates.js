@@ -1,4 +1,5 @@
 import InfoTemplate from 'esri/InfoTemplate';
+import locale from 'dojo/date/locale';
 
 function getInfoTemplate(){
   return {
@@ -8,8 +9,8 @@ function getInfoTemplate(){
       //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
       //  console.log(tipo_estado);
       let chqInfoContent =
-      "<div style=padding-top: 10px;><b>TIEMPO INICIO DE FALLA: </b> ${ARCGIS.DBO.POWERON_ORDENES.fecha_creacion:DateFormat(datePattern:'d MMMM yyyy, HH:mm:ss.', selector:'date')}<br></div>"+
-      "<div style=padding-top: 10px;><b>TIEMPO ESTIMADO REPOSICIÓN:</b> ${ARCGIS.DBO.POWERON_ORDENES.ETR:DateFormat(datePattern:'d MMMM yyyy, HH:mm:ss.', selector:'date')}<br></div>";
+      "<div style=padding-top: 10px;><b>TIEMPO INICIO DE FALLA: </b> ${ARCGIS.DBO.POWERON_ORDENES.fecha_creacion}<br></div>"+
+      "<div style=padding-top: 10px;><b>TIEMPO ESTIMADO REPOSICIÓN:</b> ${ARCGIS.DBO.POWERON_ORDENES.ETR}<br></div>";
       chqInfoTemp.setContent(chqInfoContent);
       return chqInfoTemp;
     },
@@ -38,7 +39,7 @@ function getInfoTemplate(){
       //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
       //  console.log(tipo_estado);
       let chqInfoContent =
-      "<div style=padding-top: 10px;><b>Clientes Interrumpidos: </b> ${ARCGIS.dbo.view_po_web_ext.CANT_CLIENTES}<br></div>";
+      "<div style=padding-top: 10px;><b>% Clientes Interrumpidos: </b> ${ARCGIS.dbo.view_po_web_ext.PORCENTAJE}<br></div>";
 
       chqInfoTemp.setContent(chqInfoContent);
       return chqInfoTemp;

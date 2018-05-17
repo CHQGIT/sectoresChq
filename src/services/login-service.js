@@ -31,8 +31,7 @@ function innerLogin(user,pass){
 
       }
 
-    
-      cookieHandler.set('tkn',token);
+      //cookieHandler.set('tkn',token);
       resolve([true,'OK', token]);
     })
     .fail(error => {

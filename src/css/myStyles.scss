@@ -1,3 +1,7 @@
+$primary: #F2F2F4;
+$chrs: #76798e;
+$secondary: #f5515f;
+
 body {
   margin: 0;
 }
@@ -31,7 +35,17 @@ body {
     margin: 0.5em;
 }
 
+.a_link {
+  color: white;
+}
+
+.a_link:link, .a_link:hover{
+  color: white;
+}
+
+
 @import "./components/togglerSymbology";
 @import "./components/messageNotification";
 @import "./components/Symbology";
 @import "./components/tooltip";
+@import "./components/CustomSearch";
