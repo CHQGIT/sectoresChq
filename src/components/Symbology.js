@@ -2,7 +2,7 @@ import store from '../redux/store';
 import React,  { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Button} from 'semantic-ui-react';
 import {Container} from 'semantic-ui-react';
 import env from '../services/config';
 import Tooltip from 'rc-tooltip';
@@ -29,19 +29,18 @@ class Symbology extends Component{
   render(){
 
     return (
-
-      <div className="symbology_wrapper">
+     <div className="symbology_wrapper">
         {/* titulos*/}
         <div className="symbology_title"><h3>Interrupciones por sector</h3></div>
 
         <div className="symbology_image_range">
-            <p>Haz click sobre la red para conocer la hora estimada de reposición.</p>
-            <div className="symbol_"><img src={env.CSSDIRECTORY+"images/tramo.png"}></img></div>
+            <p>Haz click sobre el ícono  <img src={env.CSSDIRECTORY+"images/gis_icon.png"}></img> para conocer la hora estimada de reposición.</p>
+            {/*  <div className="symbol_"><img src={env.CSSDIRECTORY+"images/tramo.png"}></img></div> */}
 
 
         </div>
       </div>
-
+    
     )
   }
 }

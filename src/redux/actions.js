@@ -91,5 +91,14 @@ function searchDismiss(visible){
   }
 }
 
+//01.08.2018
+function toggleMobileVisibility(visible){
+  return dispatch => {
+    dispatch({
+      type: 'TOGGLE_MOBILE_VISIBILITY',
+      visible
+    })
+  }
+}
 
-export {showNotification, dismissNotification, login_in, searchValue,searchDismiss}
+export {showNotification, dismissNotification, login_in, searchValue,searchDismiss, toggleMobileVisibility}

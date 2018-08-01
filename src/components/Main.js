@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../css/myStyles.scss';
 import Map from 'esri/map';
-import {Container, Divider, Message, Button} from 'semantic-ui-react';
+import {Container, Divider, Message, Button, Icon} from 'semantic-ui-react';
 import ToggleSymbology from './ToggleSymbology';
 import BottomSidebar from './BottomSidebar';
 import Symbology from './Symbology';
-import {showNotification, dismissNotification, login_in} from '../redux/actions';
+import {showNotification, dismissNotification, login_in, toggleMobileVisibility} from '../redux/actions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
@@ -20,6 +20,7 @@ import Search from 'esri/dijit/Search';
 import CustomSearch from './CustomSearch';
 import mapa from '../services/map_service';
 import esriBundle from "dojo/i18n!esri/nls/jsapi";
+import $ from 'jquery';
 
 class Main extends React.Component {
 
@@ -29,7 +30,7 @@ class Main extends React.Component {
     if (c.comuna) {
 
     }else{
-    
+
        c.comuna = "VALPARAISO";
     }
 
@@ -87,8 +88,24 @@ class Main extends React.Component {
 
 
   }
+
+  SymbologyVisibility(){
+    const {toggleMobileVisibility, mobile} = this.props;
+
+    if(mobile){
+        toggleMobileVisibility(false)
+        $('.symbology_container').css('visibility','hidden')
+
+    }else{
+        toggleMobileVisibility(true)
+        $('.symbology_container').css('visibility','visible')
+    }
+
+
+  }
+
   render(){
-    var {searchValue, message, interrupted} = this.props;
+    var {searchValue, message, interrupted, mobile} = this.props;
     var msg = null;
     if(message.visible){
 
@@ -120,6 +137,12 @@ class Main extends React.Component {
       <Container className="map_container">
         <div id="map"></div>
 
+        <div className="symbology_mobile">
+          <Button icon className="btn_symbology_mobile" onClick={this.SymbologyVisibility.bind(this)}>
+             <Icon name='bars'/>
+          </Button>
+        </div>
+
         <div className="symbology_container">
           <Symbology />
             <div className="address_container">
@@ -149,7 +172,8 @@ const mapDispatchToProps = dispatch => {
   return {
     login:(user, pass) => dispatch(login_in(user,pass)),
     showNotif: (message) => dispatch(showNotification(message)),
-    dismissNotif: (value) => dispatch(dismissNotification(value))
+    dismissNotif: (value) => dispatch(dismissNotification(value)),
+    toggleMobileVisibility: (value) => dispatch(toggleMobileVisibility(value))
   }
 }
 
@@ -158,7 +182,8 @@ const mapStateToProps = state => {
     token: state.login.token[2],
     interrupted: state.search.interrupted,
     searchValue: state.search.selectedSearch,
-    message: state.message
+    message: state.message,
+    mobile: state.mobile.symbologyVisibility
   }
 }
 

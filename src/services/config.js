@@ -7,7 +7,7 @@ Date: 2018-01-22
 
 
 //DEV
-/*
+
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'src/css/',
@@ -27,7 +27,7 @@ var conf = ( () => {
 
   return () => {return credentials}
 })();
-*/
+
 
 //pruebas pchilquinta
 /*
@@ -54,7 +54,7 @@ var conf = ( () => {
 
 
 //Produccion portalweb:
-
+/*
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'css/',
@@ -75,7 +75,7 @@ var conf = ( () => {
   return () => {return credentials}
 })();
 
-
+*/
 
 export {conf};
 export default env;
