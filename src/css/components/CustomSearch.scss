@@ -28,7 +28,6 @@ $chrs: #76798e;
   margin: 1em;
 }
 
-
 .searchGroup{
  width: 100%;
  display: flex;
@@ -79,6 +78,13 @@ margin-bottom: 1em;
 @media only screen and (max-width: 767px) and (orientation: portrait){
   .ui.input>input{
       width: 50% !important;
+  }
+
+}
+
+@media only screen and (min-width: 1490px) and (orientation: landscape){
+  .arcgisSearch .searchGroup .searchInput{
+    width: 150px;
   }
 
 }

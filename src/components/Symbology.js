@@ -45,14 +45,6 @@ class Symbology extends Component{
     )
   }
 }
-
-/*
-o	00-25%     VERDE               B4FFB4
-o	25-50%     AMARILLO          FFFFB4
-o	50-75%     AZUL                     B4F5FF
-o	75-100%  NARANJO           FFDCB4
-
-*/
   const mapStateToProps = state => {
     return {
       region: state.region

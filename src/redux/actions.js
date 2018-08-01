@@ -54,7 +54,7 @@ function searchValue(value, token) {
   return dispatch => {
     return searchInterruptions(value,token)
     .then(interrupted=>{
-      console.log(interrupted,"respuesta searchInterruptions");
+
       dispatch({
         type: 'INTERRUPTED',
         value, interrupted

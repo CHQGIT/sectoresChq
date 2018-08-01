@@ -29,13 +29,38 @@ var conf = ( () => {
 })();
 */
 
-//PROD
+//pruebas pchilquinta
+/*
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
-    WEBSERVERADDRESS: "http://pchilquinta.cl/mapafallas",
+    WEBSERVERADDRESS: "http://pchilquinta.pruebas/mapafallas",
+    SAVEAPPLICATIONMODULE: "",
+    SAVEAPPLICATIONNAME: '',
+    BUILDFOR: 'EXTERNA'
+}
+
+var conf = ( () => {
+  var credentials = {
+    user: 'vialactea\\usrgis',
+    pass: 'N3L4y5HZ'
+  }
+
+  return () => {return credentials}
+})();
+*/
+
+
+//Produccion portalweb:
+
+const env = {
+    ROOT: "/",
+    CSSDIRECTORY: 'css/',
+    ROUTEPATH: 'index.html',
+    ENVIRONMENT: 'PRODUCTION',
+    WEBSERVERADDRESS: "https://portalweb.chilquinta.cl/mapafallas",
     SAVEAPPLICATIONMODULE: "",
     SAVEAPPLICATIONNAME: '',
     BUILDFOR: 'EXTERNA'

@@ -20,36 +20,34 @@ function searchInterruptions(nis,token){
     var q = new Query();
     q.returnGeometry = true;
     q.outFields = ["*"];
-    q.where = `ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}`;
+    q.where = `ARCGIS.DBO.CLIENTES_XY_006.nis=${nis}`;
     qtask.execute(q,(featureSet)=>{
-        console.log(featureSet, "obtenidos");
+
       if(featureSet.features.length>0) {
 
         gLayerFind.add(new Graphic(featureSet.features[0].geometry,pointSymbol));
         map.addLayer(gLayerFind,1);
-        map.centerAndZoom(featureSet.features[0].geometry,20);
+        map.centerAndZoom(featureSet.features[0].geometry,17);
         resolve('INTERRUMPIDO')
       }else{
         var fn = findNis(nis,token)
         .then(found=>{
-          console.log(found,"tengo esto en ok");
-
-          reject('SIN PROBLEMAS');
+          reject('SIN INTERRUPCIÓN');
 
         }).catch(notFound=>{
-          console.log(notFound,"tengo esto en catch");
-          reject("NO SE ENCUENTRA NIS");
+
+          reject("NO SE ENCUENTRA NÚMERO DE CLIENTE");
         });
 
       }
     },(error)=>{
-      reject("NO SE ENCUENTRA NIS")
+      reject("NO SE ENCUENTRA NÚMERO DE CLIENTE")
     });
   });
   return promise;
 }
 
-
+//Search nis when they are not interrupted.
 function findNis(nis,token){
 
   var map = mapa.getMap();
@@ -64,11 +62,11 @@ function findNis(nis,token){
     q.outFields = ["*"];
     q.where = `ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}`;
     qtask.execute(q,(featureSet)=>{
-      console.log(featureSet,"nis en sistema?");
+    
       if(featureSet.features.length>0){
         gLayerFind.add(new Graphic(featureSet.features[0].geometry,pointSymbol));
         map.addLayer(gLayerFind,1);
-        map.centerAndZoom(featureSet.features[0].geometry,20);
+        map.centerAndZoom(featureSet.features[0].geometry,17);
         resolve(true)
       }else{
         reject(false)

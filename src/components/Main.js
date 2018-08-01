@@ -27,9 +27,9 @@ class Main extends React.Component {
 
     var c = getURLParameters();
     if (c.comuna) {
-      //  console.log(`COMUNA: ${c.comuna}`)
+
     }else{
-      // console.log("COMUNA DEFAULT: VALPARAISO");
+    
        c.comuna = "VALPARAISO";
     }
 
@@ -58,8 +58,7 @@ class Main extends React.Component {
             var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(token),{id:"po_sectores"});
 
               interrClienteSED.setInfoTemplates({
-                0: {infoTemplate: getInfoTemplate.getSectorCentroide()},
-                1: {infoTemplate: getInfoTemplate.getTramos()}
+                0: {infoTemplate: getInfoTemplate.getSectorCentroide()}
               });
 
               interrClienteSED.refreshInterval = 1;
@@ -100,12 +99,12 @@ class Main extends React.Component {
                 {interrupted}
               </Message>
         break;
-        case 'SIN PROBLEMAS':
+        case 'SIN INTERRUPCIÓN':
             msg = <Message visible={message.visible} positive color='green'>
                 {interrupted}
               </Message>
         break;
-        case 'NO SE ENCUENTRA NIS':
+        case 'NO SE ENCUENTRA NÚMERO DE CLIENTE':
             msg = <Message visible={message.visible} info color='blue'>
                 {interrupted}
               </Message>

@@ -7,7 +7,7 @@ function getInfoTemplate(){
       let chqInfoTemp= new InfoTemplate();
       chqInfoTemp.setTitle("<b>Falla :</b>");
       //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
-      //  console.log(tipo_estado);
+    
       let chqInfoContent =
       "<div style=padding-top: 10px;><b>TIEMPO INICIO DE FALLA: </b> ${ARCGIS.DBO.POWERON_ORDENES.fecha_creacion}<br></div>"+
       "<div style=padding-top: 10px;><b>TIEMPO ESTIMADO REPOSICIÓN:</b> ${ARCGIS.DBO.POWERON_ORDENES.ETR}<br></div>";
@@ -35,11 +35,11 @@ function getInfoTemplate(){
     },
     getSectorCentroide(){
       let chqInfoTemp= new InfoTemplate();
-      chqInfoTemp.setTitle("<b>Sector: ${ARCGIS.dbo.view_po_web_ext.NOMBRE_SECTOR}</b> ");
+      chqInfoTemp.setTitle("<b>Sector </b> ");
       //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
-      //  console.log(tipo_estado);
+
       let chqInfoContent =
-      "<div style=padding-top: 10px;><b>% Clientes Interrumpidos: </b> ${ARCGIS.dbo.view_po_web_ext.PORCENTAJE}<br></div>";
+      "<div style=padding-top: 10px;><b>Tiempo Estimado Reposición: </b> ${ARCGIS.DBO.POWERON_ORDENES.ETR}<br></div>";
 
       chqInfoTemp.setContent(chqInfoContent);
       return chqInfoTemp;

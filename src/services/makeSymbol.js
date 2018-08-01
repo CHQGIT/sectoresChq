@@ -53,7 +53,7 @@ function makeSymbol(){
     },
     makePolygon(){
       var mySymbol = "not defined yet";
-      console.log("still not defined");
+  
       return mySymbol;
     },
     makeTrackLine(){
