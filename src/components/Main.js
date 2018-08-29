@@ -94,11 +94,11 @@ class Main extends React.Component {
 
     if(mobile){
         toggleMobileVisibility(false)
-        $('.symbology_container').css('visibility','hidden')
+        $('.symbology_container').css('visibility','visible')
 
     }else{
         toggleMobileVisibility(true)
-        $('.symbology_container').css('visibility','visible')
+        $('.symbology_container').css('visibility','hidden')
     }
 
 
@@ -139,7 +139,7 @@ class Main extends React.Component {
 
         <div className="symbology_mobile">
           <Button icon className="btn_symbology_mobile" onClick={this.SymbologyVisibility.bind(this)}>
-             <Icon name='bars'/>
+             <Icon name='external'/>
           </Button>
         </div>
 

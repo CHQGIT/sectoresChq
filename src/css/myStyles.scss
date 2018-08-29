@@ -43,6 +43,25 @@ body {
   color: white;
 }
 
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+
+  #map {
+    display: grid;
+    height: 200%;
+    grid-column: auto;
+    grid-row: auto;
+    position: absolute;
+  }
+
+  #BasemapToggle{
+    bottom: -100%;
+  }
+
+  .symbology_container {
+    display: grid !important;
+  }
+}
+
 
 @import "./components/togglerSymbology";
 @import "./components/messageNotification";
