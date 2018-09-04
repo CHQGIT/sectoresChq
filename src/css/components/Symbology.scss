@@ -106,12 +106,13 @@ $secondary: #f5515f;
 /*3.9.2018*/
 .symbo_groups{
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 4em 1fr;
   margin-left: 1em;
   margin-right: 1em;
   column-gap: 1em;
   row-gap: 1em;
   padding-bottom: 0.5em;
+  text-align: left;
 }
 
 

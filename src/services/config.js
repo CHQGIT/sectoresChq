@@ -1,8 +1,8 @@
 /*
 APP: Sectores
 Author: Evelyn Hernandez
-Version: 1.9.3
-Date: 2018-08-29
+Version: 1.9.4
+Date: 2018-09-04
 */
 
 
@@ -30,7 +30,7 @@ var conf = ( () => {
 */
 
 //pruebas pchilquinta
-/*
+
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'css/',
@@ -50,11 +50,11 @@ var conf = ( () => {
 
   return () => {return credentials}
 })();
-*/
+
 
 
 //Produccion portalweb:
-
+/*
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'css/',
@@ -74,7 +74,7 @@ var conf = ( () => {
 
   return () => {return credentials}
 })();
-
+*/
 
 
 export {conf};
