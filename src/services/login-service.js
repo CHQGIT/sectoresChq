@@ -2,6 +2,8 @@
 import getLayer from './layers-service';
 import cookieHandler from 'cookie-handler';
 import $ from 'jquery';
+import kernel from "esri/kernel";
+import {conf} from '../services/config';
 
 function innerLogin(user,pass){
   var promise = new Promise((resolve,reject)=>{
@@ -30,6 +32,16 @@ function innerLogin(user,pass){
         reject([false,'Login incorrecto, intente nuevamente']);
 
       }
+
+      var t = {
+        "server": getLayer.read_service_url(),
+        "userId": conf().user,
+        "token": token,
+        "ssl": false,
+        "expires": 7200
+      };
+
+      kernel.id.registerToken(t);
 
       //cookieHandler.set('tkn',token);
       resolve([true,'OK', token]);

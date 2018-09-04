@@ -13,8 +13,12 @@ function getLayer(){
     read_tokenURL(){
       return serviceMain + "tokens/generateToken";
     },
-    read_po_sectores(token){
-      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" +token;
+    read_service_url(){
+      return serviceURL;
+    },
+    read_po_sectores(){
+      //return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" +token;
+      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer";
     },
     read_nisAfectados(token){
       //return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token;

@@ -56,7 +56,7 @@ class Main extends React.Component {
             //agregando layer clientes sed.
             const {token} = this.props;
 
-            var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(token),{id:"po_sectores"});
+            var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(),{id:"po_sectores"});
 
               interrClienteSED.setInfoTemplates({
                 0: {infoTemplate: getInfoTemplate.getSectorCentroide()}
@@ -150,7 +150,7 @@ class Main extends React.Component {
               <div id="search"></div>
               <Divider horizontal>O busca tu número de cliente</Divider>
               <CustomSearch />
-              {msg}
+              {/*{msg}*/}
 
            </div>
            <div className="symbology_container2">
