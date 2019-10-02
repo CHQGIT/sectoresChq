@@ -1,13 +1,13 @@
 /*
 APP: Sectores
 Author: Evelyn Hernandez
-Version: 1.9.4
-Date: 2018-09-04
+Version: 1.9.7p
+Date: 2018/11/07
 */
 
 
 //DEV
-/*
+
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'src/css/',
@@ -27,10 +27,10 @@ var conf = ( () => {
 
   return () => {return credentials}
 })();
-*/
+
 
 //pruebas pchilquinta
-
+/*
 const env = {
     ROOT: "/",
     CSSDIRECTORY: 'css/',
@@ -50,8 +50,7 @@ var conf = ( () => {
 
   return () => {return credentials}
 })();
-
-
+*/
 
 //Produccion portalweb:
 /*
@@ -60,7 +59,7 @@ const env = {
     CSSDIRECTORY: 'css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
-    WEBSERVERADDRESS: "https://portalweb.chilquinta.cl/mapafallas",
+    WEBSERVERADDRESS: "https://chilquinta.cl/mapafallas",
     SAVEAPPLICATIONMODULE: "",
     SAVEAPPLICATIONNAME: '',
     BUILDFOR: 'EXTERNA'

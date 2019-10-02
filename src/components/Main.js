@@ -1,20 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styles from '../css/myStyles.scss';
-import Map from 'esri/map';
 import {Container, Divider, Message, Button, Icon} from 'semantic-ui-react';
-import ToggleSymbology from './ToggleSymbology';
-import BottomSidebar from './BottomSidebar';
 import Symbology from './Symbology';
 import {showNotification, dismissNotification, login_in, toggleMobileVisibility} from '../redux/actions';
 import {connect} from 'react-redux';
-import store from '../redux/store';
-import {regionsExtent, getComunaExtent}  from '../services/regionsExtent';
+import {getComunaExtent}  from '../services/regionsExtent';
 import {getURLParameters} from '../services/parameters';
 import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 import getLayer from '../services/layers-service';
 import BasemapToggle from "esri/dijit/BasemapToggle";
-import getInfoTemplate from '../services/infoTemplates';
+
 import {conf} from '../services/config';
 import Search from 'esri/dijit/Search';
 import CustomSearch from './CustomSearch';
@@ -27,13 +22,10 @@ class Main extends React.Component {
   componentDidMount(){
 
     var c = getURLParameters();
-    if (c.comuna) {
-
-    }else{
-
-       c.comuna = "VALPARAISO";
+    if (!c.comuna) {
+        c.comuna = "VALPARAISO";
     }
-
+    console.log(c.comuna,"comuna");
     var comuna = getComunaExtent(c.comuna)
     .then(r=>{
 
@@ -57,14 +49,9 @@ class Main extends React.Component {
             const {token} = this.props;
 
             var interrClienteSED = new ArcGISDynamicMapServiceLayer(getLayer.read_po_sectores(),{id:"po_sectores"});
-
-              interrClienteSED.setInfoTemplates({
-                0: {infoTemplate: getInfoTemplate.getSectorCentroide()}
-              });
-
+          
               interrClienteSED.refreshInterval = 1;
               interrClienteSED.setImageFormat("png32");
-
 
             map.addLayers([interrClienteSED]);
 
@@ -154,7 +141,7 @@ class Main extends React.Component {
 
            </div>
            <div className="symbology_container2">
-             <Button className="report_button" color='red'><a className="a_link" href="https://portalweb.chilquinta.cl/reportar_incidencia">¡REPORTAR CORTE DE LUZ!</a></Button>
+             <Button className="report_button" color='red'><a className="a_link" href="https://www.chilquinta.cl/reportar_incidencia">¡REPORTAR CORTE DE LUZ!</a></Button>
 
           </div>
         </div>

@@ -1,14 +1,8 @@
-import store from '../redux/store';
 import React,  { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {saveRegion, searchValue, changeActiveIndex, searchDismiss} from '../redux/actions';
-import { Icon, Tab } from 'semantic-ui-react';
-import {Container, Form, Radio, Input, Button} from 'semantic-ui-react';
-import env from '../services/config';
-import Tooltip from 'rc-tooltip';
-import Search from 'esri/dijit/Search';
-import mapa from '../services/map_service';
+import {searchValue, searchDismiss} from '../redux/actions';
+
+import {Input, Button} from 'semantic-ui-react';
 
 function preventDefault(e) {
   e.preventDefault();
