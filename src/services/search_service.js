@@ -21,6 +21,7 @@ function searchInterruptions(nis,token){
     q.returnGeometry = true;
     q.outFields = ["*"];
     q.where = `ARCGIS.DBO.CLIENTES_XY_006.nis=${nis}`;
+    //q.where = `nis=${nis}`; 
     qtask.execute(q,(featureSet)=>{
 
       if(featureSet.features.length>0) {

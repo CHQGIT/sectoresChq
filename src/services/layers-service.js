@@ -22,7 +22,8 @@ function getLayer(){
     },
     read_nisAfectados(token){
       //return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token;
-      return serviceURL + "Interrupciones/PO_PC/MapServer/7/?f=json&token=" + token;
+      //return serviceURL + "Interrupciones/PO_PC/MapServer/7/?f=json&token=" + token;
+      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer/3/?f=json&token=" + token;
     },
     read_nis(token){
       return serviceURL + "Chilquinta_006/ClientesV2/MapServer/0?f=json&token=" + token;
